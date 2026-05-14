@@ -85,50 +85,21 @@
     /* --- HERO --- */
     .hero {
       position: relative;
-      height: 70vh;
-      min-height: 400px;
-      max-height: 640px;
-      display: flex;
-      align-items: flex-end;
-      padding: 0 48px 48px;
+      margin-top: 64px;
       overflow: hidden;
     }
 
-    .hero-bg {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('/img/banner.png') center center / cover no-repeat;
-      z-index: 0;
+    .hero img {
+      width: 100%;
+      display: block;
     }
 
-    .hero-bg::after {
+    .hero::after {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background:
-        linear-gradient(to top, var(--bg) 0%, rgba(17,17,17,0.2) 50%, rgba(17,17,17,0.3) 100%),
-        linear-gradient(to right, rgba(17,17,17,0.8) 0%, rgba(17,17,17,0.3) 40%, transparent 70%);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 560px;
-    }
-
-    .hero h1 {
-      font-size: 44px;
-      font-weight: 800;
-      letter-spacing: -2px;
-      line-height: 1.05;
-      margin-bottom: 14px;
-    }
-
-    .hero p {
-      font-size: 17px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      max-width: 460px;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
     }
 
     /* --- VIDEOS --- */
@@ -228,10 +199,6 @@
       color: var(--text);
     }
 
-    .video-date {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
 
     /* --- LOADING --- */
     .loading {
@@ -263,9 +230,7 @@
       .nav-links.open { display: flex; }
       .nav-toggle { display: block; }
 
-      .hero { height: 50vh; min-height: 300px; padding: 0 20px 32px; }
-      .hero h1 { font-size: 30px; }
-      .hero p { font-size: 15px; }
+      .hero { margin-top: 56px; }
 
       .videos-section { padding: 20px 20px 60px; }
       .video-grid { grid-template-columns: 1fr; }
@@ -288,11 +253,7 @@
   </nav>
 
   <div class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <h1>Real stories from real people</h1>
-      <p>Conversational interviews with craftsmen, artists, and hard workers. No scripts, no fluff. Just people and their stories.</p>
-    </div>
+    <img src="/img/banner.png" alt="Human Element - Real Human Stories">
   </div>
 
   <div class="videos-section">
@@ -327,9 +288,6 @@
         }
 
         grid.innerHTML = videos.map(v => {
-          const date = new Date(v.published).toLocaleDateString('en-US', {
-            year: 'numeric', month: 'short', day: 'numeric'
-          });
           return `
             <div class="video-card">
               <div class="video-thumb" onclick="playVideo(this, '${v.videoId}')">
@@ -340,7 +298,6 @@
               </div>
               <div class="video-info">
                 <div class="video-title">${v.title}</div>
-                <div class="video-date">${date}</div>
               </div>
             </div>
           `;
