@@ -85,21 +85,51 @@
     /* --- HERO --- */
     .hero {
       position: relative;
+      height: 75vh;
+      min-height: 420px;
+      max-height: 700px;
       margin-top: 64px;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 48px 48px;
       overflow: hidden;
     }
 
-    .hero img {
-      width: 100%;
-      display: block;
+    .hero-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('/img/banner.png') center center / cover no-repeat;
+      z-index: 0;
     }
 
-    .hero::after {
+    .hero-bg::after {
       content: '';
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 120px;
-      background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        linear-gradient(to top, var(--bg) 0%, rgba(17,17,17,0.15) 50%, rgba(17,17,17,0.3) 100%),
+        linear-gradient(to right, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0.4) 40%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 460px;
     }
 
     /* --- VIDEOS --- */
@@ -230,7 +260,9 @@
       .nav-links.open { display: flex; }
       .nav-toggle { display: block; }
 
-      .hero { margin-top: 56px; }
+      .hero { height: 50vh; min-height: 300px; margin-top: 56px; padding: 0 20px 32px; }
+      .hero h1 { font-size: 34px; }
+      .hero p { font-size: 16px; }
 
       .videos-section { padding: 20px 20px 60px; }
       .video-grid { grid-template-columns: 1fr; }
@@ -253,7 +285,11 @@
   </nav>
 
   <div class="hero">
-    <img src="/img/banner.png" alt="Human Element - Real Human Stories">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>Real stories from real people</h1>
+      <p>Conversational interviews with craftsmen, artists, and hard workers. No scripts, no fluff. Just people and their stories.</p>
+    </div>
   </div>
 
   <div class="videos-section">
