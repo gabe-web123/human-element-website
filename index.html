@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Human Element</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Real stories from real people. Conversational interviews with craftsmen, artists, and hard workers.">
+  <meta property="og:title" content="Human Element">
+  <meta property="og:description" content="Real stories from real people.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #111;
+      --bg-card: #1A1A1A;
+      --text: #EDEDED;
+      --text-secondary: #999;
+      --text-muted: #555;
+      --accent: #E0C097;
+      --border: #262626;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- NAV --- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 0 48px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    /* --- HERO --- */
+    .hero {
+      padding: 140px 48px 60px;
+      max-width: 700px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 500px;
+    }
+
+    /* --- VIDEOS --- */
+    .videos-section {
+      padding: 20px 48px 80px;
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+    }
+
+    .video-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .video-card:hover {
+      border-color: #333;
+    }
+
+    .video-embed {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+      border: none;
+    }
+
+    .video-info {
+      padding: 16px 18px 18px;
+    }
+
+    .video-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .video-date {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* --- LOADING --- */
+    .loading {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer a { color: var(--text-secondary); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; gap: 24px; }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; height: 56px; }
+      .nav-links { display: none; position: absolute; top: 56px; left: 0; right: 0; background: rgba(17,17,17,0.98); flex-direction: column; padding: 12px 20px 16px; gap: 12px; border-bottom: 1px solid var(--border); }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+
+      .hero { padding: 110px 20px 40px; }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; }
+
+      .videos-section { padding: 20px 20px 60px; }
+      .video-grid { grid-template-columns: 1fr; }
+
+      footer { flex-direction: column; gap: 12px; padding: 28px 20px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Human Element</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="https://www.youtube.com/@HumanElement-USA" target="_blank">YouTube</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <h1>Real stories from real people</h1>
+    <p>Conversational interviews with craftsmen, artists, and hard workers. No scripts, no fluff. Just people and their stories.</p>
+  </div>
+
+  <div class="videos-section">
+    <div class="section-label">Latest Videos</div>
+    <div id="videoGrid" class="video-grid">
+      <div class="loading">Loading videos...</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="https://www.youtube.com/@HumanElement-USA" target="_blank">YouTube</a>
+    </div>
+    <p>&copy; 2026 Human Element</p>
+  </footer>
+
+  <script>
+    const grid = document.getElementById('videoGrid');
+
+    fetch('/api/videos')
+      .then(res => res.json())
+      .then(data => {
+        const videos = data.videos || [];
+        if (videos.length === 0) {
+          grid.innerHTML = '<div class="loading">No videos yet. Check back soon.</div>';
+          return;
+        }
+
+        grid.innerHTML = videos.map(v => {
+          const date = new Date(v.published).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric'
+          });
+          return `
+            <div class="video-card">
+              <iframe class="video-embed" src="https://www.youtube.com/embed/${v.videoId}" allowfullscreen loading="lazy"></iframe>
+              <div class="video-info">
+                <div class="video-title">${v.title}</div>
+                <div class="video-date">${date}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      })
+      .catch(() => {
+        grid.innerHTML = '<div class="loading">Could not load videos. <a href="https://www.youtube.com/@HumanElement-USA" target="_blank" style="color:#E0C097;">Watch on YouTube</a></div>';
+      });
+  </script>
+
+</body>
+</html>
