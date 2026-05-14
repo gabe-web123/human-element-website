@@ -142,6 +142,52 @@
       border: none;
     }
 
+    .video-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s;
+    }
+
+    .video-thumb:hover img {
+      opacity: 0.85;
+    }
+
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .video-thumb:hover .play-btn {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .play-btn svg {
+      width: 22px;
+      height: 22px;
+      margin-left: 3px;
+      fill: #fff;
+    }
+
     .video-info {
       padding: 16px 18px 18px;
     }
@@ -234,6 +280,10 @@
   </footer>
 
   <script>
+    function playVideo(el, videoId) {
+      el.outerHTML = `<iframe class="video-embed" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" allowfullscreen allow="autoplay"></iframe>`;
+    }
+
     const grid = document.getElementById('videoGrid');
 
     fetch('/api/videos')
@@ -251,7 +301,12 @@
           });
           return `
             <div class="video-card">
-              <iframe class="video-embed" src="https://www.youtube.com/embed/${v.videoId}" allowfullscreen loading="lazy"></iframe>
+              <div class="video-thumb" onclick="playVideo(this, '${v.videoId}')">
+                <img src="${v.thumbnail}" alt="${v.title}" loading="lazy">
+                <div class="play-btn">
+                  <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+                </div>
+              </div>
               <div class="video-info">
                 <div class="video-title">${v.title}</div>
                 <div class="video-date">${date}</div>
