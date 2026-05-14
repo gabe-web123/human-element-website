@@ -30,9 +30,12 @@ export default async function handler(req, res) {
       }
     }
 
+    // Filter out Shorts
+    const longForm = entries.filter(v => !v.title.toLowerCase().includes('#shorts') && !v.title.toLowerCase().includes('#short'));
+
     res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=300');
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.json({ videos: entries });
+    res.json({ videos: longForm });
   } catch (err) {
     console.error('Failed to fetch YouTube feed:', err);
     res.status(500).json({ error: 'Failed to fetch videos' });
