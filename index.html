@@ -84,23 +84,51 @@
 
     /* --- HERO --- */
     .hero {
-      padding: 140px 48px 60px;
-      max-width: 700px;
+      position: relative;
+      height: 70vh;
+      min-height: 400px;
+      max-height: 640px;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 48px 48px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('/img/banner.png') center center / cover no-repeat;
+      z-index: 0;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        linear-gradient(to top, var(--bg) 0%, rgba(17,17,17,0.2) 50%, rgba(17,17,17,0.3) 100%),
+        linear-gradient(to right, rgba(17,17,17,0.8) 0%, rgba(17,17,17,0.3) 40%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
     }
 
     .hero h1 {
-      font-size: 48px;
+      font-size: 44px;
       font-weight: 800;
       letter-spacing: -2px;
       line-height: 1.05;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     .hero p {
-      font-size: 18px;
+      font-size: 17px;
       color: var(--text-secondary);
       line-height: 1.6;
-      max-width: 500px;
+      max-width: 460px;
     }
 
     /* --- VIDEOS --- */
@@ -235,9 +263,9 @@
       .nav-links.open { display: flex; }
       .nav-toggle { display: block; }
 
-      .hero { padding: 110px 20px 40px; }
-      .hero h1 { font-size: 32px; }
-      .hero p { font-size: 16px; }
+      .hero { height: 50vh; min-height: 300px; padding: 0 20px 32px; }
+      .hero h1 { font-size: 30px; }
+      .hero p { font-size: 15px; }
 
       .videos-section { padding: 20px 20px 60px; }
       .video-grid { grid-template-columns: 1fr; }
@@ -260,8 +288,11 @@
   </nav>
 
   <div class="hero">
-    <h1>Real stories from real people</h1>
-    <p>Conversational interviews with craftsmen, artists, and hard workers. No scripts, no fluff. Just people and their stories.</p>
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>Real stories from real people</h1>
+      <p>Conversational interviews with craftsmen, artists, and hard workers. No scripts, no fluff. Just people and their stories.</p>
+    </div>
   </div>
 
   <div class="videos-section">
