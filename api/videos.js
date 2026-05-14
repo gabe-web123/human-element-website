@@ -1,6 +1,5 @@
 export default async function handler(req, res) {
   const CHANNEL_ID = 'UCm18ZT7uNKxjY8f_9XlgiCA';
-  const MIN_SECONDS = 180; // 3 minutes
   const FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 
   try {
@@ -18,6 +17,11 @@ export default async function handler(req, res) {
       const title = (entry.match(/<title>(.*?)<\/title>/) || [])[1];
       const published = (entry.match(/<published>(.*?)<\/published>/) || [])[1];
       const description = (entry.match(/<media:description>([\s\S]*?)<\/media:description>/) || [])[1] || '';
+      const link = (entry.match(/<link rel="alternate" href="(.*?)"/) || [])[1] || '';
+
+      // Skip Shorts — YouTube RSS uses /shorts/ URLs for them
+      const isShort = link.includes('/shorts/');
+      if (isShort) continue;
 
       if (videoId && title) {
         entries.push({
@@ -31,29 +35,9 @@ export default async function handler(req, res) {
       }
     }
 
-    // Check duration for each video by fetching the YouTube page
-    const withDuration = await Promise.all(
-      entries.map(async (v) => {
-        try {
-          const page = await fetch(`https://www.youtube.com/watch?v=${v.videoId}`, {
-            headers: { 'User-Agent': 'Mozilla/5.0' }
-          });
-          const html = await page.text();
-          const lengthMatch = html.match(/"lengthSeconds":"(\d+)"/);
-          const seconds = lengthMatch ? parseInt(lengthMatch[1], 10) : 0;
-          return { ...v, duration: seconds };
-        } catch {
-          return { ...v, duration: 0 };
-        }
-      })
-    );
-
-    // Only keep videos 3+ minutes
-    const longForm = withDuration.filter(v => v.duration >= MIN_SECONDS);
-
     res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=300');
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.json({ videos: longForm });
+    res.json({ videos: entries });
   } catch (err) {
     console.error('Failed to fetch YouTube feed:', err);
     res.status(500).json({ error: 'Failed to fetch videos' });
